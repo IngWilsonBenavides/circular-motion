@@ -52,10 +52,14 @@ function Particle(x, y, radius, color) {
 	this.color = color;
 	this.radians = Math.random() * Math.PI * 2;
 	this.velocity = 0.05;
+	this.distanceFromCenter = {
+		x: randomIntFromRange(50, 120),
+		y: randomIntFromRange(50, 120)
+	};
 
 	this.update = () => {
 		this.radians += this.velocity;
-		this.x = x + Math.cos(this.radians) * randomIntFromRange(50, 120);
+		this.x = x + Math.cos(this.radians) * this.distanceFromCenter.x;
 		this.y = y + Math.sin(this.radians) * 100;
 		this.draw();
 	};
