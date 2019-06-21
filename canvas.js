@@ -52,15 +52,12 @@ function Particle(x, y, radius, color) {
 	this.color = color;
 	this.radians = Math.random() * Math.PI * 2;
 	this.velocity = 0.05;
-	this.distanceFromCenter = {
-		x: randomIntFromRange(50, 120),
-		y: randomIntFromRange(50, 120)
-	};
+	this.distanceFromCenter = randomIntFromRange(50, 120);
 
 	this.update = () => {
 		this.radians += this.velocity;
-		this.x = x + Math.cos(this.radians) * this.distanceFromCenter.x;
-		this.y = y + Math.sin(this.radians) * 100;
+		this.x = x + Math.cos(this.radians) * this.distanceFromCenter;
+		this.y = y + Math.sin(this.radians) * this.distanceFromCenter;
 		this.draw();
 	};
 
@@ -87,7 +84,8 @@ function init() {
 // Animation Loop
 function animate() {
 	requestAnimationFrame(animate);
-	c.clearRect(0, 0, canvas.width, canvas.height);
+	c.fillStyle = 'rgba(255, 255, 255, 0.05)';
+	c.fillRect(0, 0, canvas.width, canvas.height);
 
 	particles.forEach(particle => {
 		particle.update();
