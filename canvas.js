@@ -55,17 +55,21 @@ function Particle(x, y, radius, color) {
 	this.distanceFromCenter = randomIntFromRange(50, 120);
 
 	this.update = () => {
+		const lastPoint = {x: this.x, y: this.y}
+
 		this.radians += this.velocity;
 		this.x = x + Math.cos(this.radians) * this.distanceFromCenter;
 		this.y = y + Math.sin(this.radians) * this.distanceFromCenter;
-		this.draw();
+		this.draw(lastPoint);
 	};
 
-	this.draw = () => {
+	this.draw = lastPoint => {
 		c.beginPath();
-		c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);	
-		c.fillStyle = this.color;
-		c.fill();
+		c.strokeStyle = this.color;
+		c.lineWidth = this.radius; 
+		c.moveTo(lastPoint.x, lastPoint.y);
+		c.lineTo(this.x, this.y);
+		c.stroke();
 		c.closePath();
 	};
 }
@@ -76,8 +80,9 @@ let particles;
 function init() {
 	particles = [];
 
-	for (let i = 0; i < 40; i++) {
-		particles.push(new Particle(canvas.width / 2, canvas.height / 2, 5, 'blue'));
+	for (let i = 0; i < 50; i++) {
+		const radius = (Math.random() * 2) + 1;
+		particles.push(new Particle(canvas.width / 2, canvas.height / 2, radius, 'blue'));
 	}
 }
 
