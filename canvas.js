@@ -56,6 +56,7 @@ function Particle(x, y, radius, color) {
 	this.update = () => {
 		this.radians += this.velocity;
 		this.x = x + Math.cos(this.radians) * 100;
+		this.y = y + Math.cos(this.radians) * 100;
 		this.draw();
 	};
 
